@@ -80,12 +80,54 @@ char	*get_next_line(int fd)
 	return (s);
 }
 
+int	deal_key1(int key, void *param)
+{
+	// char	**s;
+	// int x;
+	// int y;
+
+	// x = 0;
+	// y = 0;
+	// s = (char**)param;
+
+	if (key == 13)
+	{
+		printf("woriking");
+	}
+	if (key == 1)
+	{
+		printf("working");
+	}
+	//printf("%d", key);
+	//printf("working");
+	// if (key == 13)
+	// {
+	// 	while (s[x])
+	// 	{
+	// 		while(s[x][y])
+	// 		{
+	// 			if (s[x][y] == 'P')
+	// 			{
+
+	// 			}
+	// 			y++;
+	// 		}
+	// 		x++;
+	// 	}
+	// 	printf("working\n");
+	// }
+
+	return (0);
+}
+
+
 int main(int argc, char *argv[])
 {
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
-	char	*s;
+	char	**s;
+	char	*a;
 
 	int		fd;
 	int		width;
@@ -94,60 +136,141 @@ int main(int argc, char *argv[])
 	int		x;
 	int		y;
 	int		o;
+	int		hit;
+	int		x1;
+	int		y1;
 
 	fd = 0;
 	i = 0;
 	x = 0;
 	y = 0;
 	o = 0;
+	x1 = 0;
+	y1 = 0;
+	hit = 0;
 	width = 2;
 	height = 2;
 	mlx = mlx_init();
 	fd = open(argv[1], O_RDONLY);
-	s = get_next_line(fd);
-	i = strlen(s);
-	i -= 1;
-	while(1)
+	a = get_next_line(fd);
+	y = strlen(a);
+	while(a != NULL)
 	{
-		s = get_next_line(fd);
-		o++;
-		if (s == NULL)
-			break ;
+		a = get_next_line(fd);
+		x++;
 	}
-	mlx_win = mlx_new_window(mlx, 50 * i, 50 * o, "My First Game");
-	img = mlx_xpm_file_to_image(mlx, "./hello.xpm", &width, &height);
-	mlx_put_image_to_window(mlx, mlx_win, img, 0, 0);
-	i = 0;
+	y -= 1;
+	mlx_win = mlx_new_window(mlx, 50 * y, 50 * x, "My First Game");
+	s = (char**)calloc(x, 1);
 	close(fd);
+	x = 0;
+	i = 0;
+	y = 0;
 	fd = open(argv[1], O_RDONLY);
-	s = get_next_line(fd);
-	while(s[i] != 0)
+	s[x] = get_next_line(fd);
+
+	while(s[x])
 	{
-		if (s[i] == '1')
+		y = 0;
+		while(s[x][y])
 		{
-			img = mlx_xpm_file_to_image(mlx, "./test.xpm", &width, &height);
-			mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+			if (s[x][y] == '1')
+			{
+				img = mlx_xpm_file_to_image(mlx, "./img/wall.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+			}
+			else if (s[x][y] == 'C')
+			{
+				img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+				img = mlx_xpm_file_to_image(mlx, "./img/heart1.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+			}
+			else if (s[x][y] == 'P')
+			{
+				img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+				img = mlx_xpm_file_to_image(mlx, "./img/idle.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+			}
+			else if (s[x][y] == '0')
+			{
+				img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+			}
+			else if (s[x][y] == 'E')
+			{
+				img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+				img = mlx_xpm_file_to_image(mlx, "./img/door.xpm", &width, &height);
+				mlx_put_image_to_window(mlx, mlx_win, img, x1, y1);
+			}
+			x1 += 50;
+			y++;
 		}
-		else if (s[i] == 'C')
-		{
-			img = mlx_xpm_file_to_image(mlx, "./heart1.xpm", &width, &height);
-			mlx_put_image_to_window(mlx, mlx_win, img, x, y);
-		}
-		x += 50;
-		i++;
-		if (s[i] == '\n')
-		{
-			free(s);
-			s = get_next_line(fd);
-			if (s == NULL)
-				return 0;
-			printf("%s", s);
-			y += 50;
-			x = 0;
-			i = 0;
-		}
+		x++;
+		s[x] = get_next_line(fd);
+		printf("%s", s[x]);
+		y1 += 50;
+		x1 = 0;
 	}
 
+	mlx_key_hook(mlx_win, deal_key1, (void*)0);
+	mlx_mouse_hook(mlx_win, deal_key1, (void *)0);
 	mlx_loop(mlx);
 	return 0;
 }
+
+
+
+
+
+
+
+	// while(s[i] != 0)
+	// {
+	// 	if (s[i] == '1')
+	// 	{
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/wall.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 	}
+	// 	else if (s[i] == 'C')
+	// 	{
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/heart1.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 	}
+	// 	else if (s[i] == 'P')
+	// 	{
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/idle.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 	}
+	// 	else if (s[i] == '0')
+	// 	{
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 	}
+	// 	else if (s[i] == 'E')
+	// 	{
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/wall1.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 		img = mlx_xpm_file_to_image(mlx, "./img/door.xpm", &width, &height);
+	// 		mlx_put_image_to_window(mlx, mlx_win, img, x, y);
+	// 	}
+	// 	x += 50;
+	// 	i++;
+	// 	if (s[i] == '\n')
+	// 	{
+	// 		free(s);
+	// 		s = get_next_line(fd);
+	// 		if (s == NULL)
+	// 			return 0;
+	// 		printf("%s", s);
+	// 		y += 50;
+	// 		x = 0;
+	// 		i = 0;
+	// 	}
+	// }
