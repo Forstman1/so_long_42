@@ -37,18 +37,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (c);
 }
 
-char	*readline(char *s, char *buf, char *stati, int fd)
+char	*readline(char *s, char *buf, int fd)
 {
 	int		i;
 	void	*ptr;
 
 	while (s == NULL || !strchr(s, '\n'))
 	{
-		i = read(fd, buf, 1000);
+		i = read(fd, buf, 1);
 		if (i <= 0)
 		{
-			if (stati && *stati)
-				free(stati);
 			if (s && *s)
 				return (free(buf), s);
 			return (free(buf), free(s), NULL);
@@ -56,7 +54,7 @@ char	*readline(char *s, char *buf, char *stati, int fd)
 		ptr = s;
 		s = ft_strjoin(s, buf);
 		free(ptr);
-		bzero(buf, 1000 + 1);
+		bzero(buf, 1 + 1);
 	}
 	return (free(buf), s);
 }
@@ -67,23 +65,16 @@ char	*get_next_line(int fd)
 {
 	char		*s;
 	char		*buf;
-	static char	*stati;
 
 	s = NULL;
-	if (stati != NULL)
-	{
-		s = strdup(stati);
-		free(stati);
-		stati = NULL;
-	}
-	buf = (char *)calloc(1000, sizeof(char));
-	s = readline(s, buf, stati, fd);
+
+	buf = (char *)calloc(1, sizeof(char));
+	s = readline(s, buf, fd);
 	if (s == NULL)
 		return (NULL);
 	if (strchr(s, '\n'))
 	{
-		stati = strdup(strchr(s, '\n') + 1);
-		bzero(strchr(s, '\n') + 1, strlen(strchr(s, '\n') + 1));
+		bzero(strchr(s, '\n'), strlen(strchr(s, '\n')));
 	}
 	return (s);
 }
@@ -97,8 +88,44 @@ typedef struct	s_vars {
 	void	*player;
 	void	*collect;
 	void	*door;
+	int		steps;
 }				t_vars;
 
+	// void		declaringimages(t_vars *var)
+	// {
+	// 	int		width;
+	// 	int		height;
+	// 	width = 0;
+	// 	height = 0;
+
+	// 	var->wall = mlx_xpm_file_to_image(var->mlx, "./img/wall.xpm", &width, &height);
+	// 	var->collect = mlx_xpm_file_to_image(var->mlx, "./img/heart1.xpm", &width, &height);
+	// 	var->background = mlx_xpm_file_to_image(var->mlx, "./img/wall1.xpm", &width, &height);
+	// 	var->player = mlx_xpm_file_to_image(var->mlx, "./img/idle.xpm", &width, &height);
+	// 	var->door = mlx_xpm_file_to_image(var->mlx, "./img/door.xpm", &width, &height);
+	// }
+
+int		checkcollect(t_vars *var)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+
+	while (var->s[x])
+	{
+		y = 0;
+		while (var->s[x][y])
+		{
+			if (var->s[x][y] == 'C')
+				return 0;
+			y++;
+		}
+		x++;
+	}
+	return 1;
+}
 
 void	draw(t_vars	*var)
 {
@@ -112,94 +139,110 @@ void	draw(t_vars	*var)
 	x1 = 0;
 	y1 = 0;
 	while(var->s[x] != NULL)
+	{
+		y = 0;
+		while(var->s[x][y])
 		{
-			y = 0;
-			while(var->s[x][y])
+			printf("ana hna\n");
+			if (var->s[x][y] == '1')
 			{
-				if (var->s[x][y] == '1')
-				{
-					mlx_put_image_to_window(var->mlx, var->win, var->wall, x1, y1);
-				}
-				else if (var->s[x][y] == 'C')
-				{
-					mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
-					mlx_put_image_to_window(var->mlx, var->win, var->collect, x1, y1);
-				}
-				else if (var->s[x][y] == 'P')
-				{
-					
-					mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
-					mlx_put_image_to_window(var->mlx, var->win, var->player, x1, y1);
-				}
-				else if (var->s[x][y] == '0')
-				{
-					mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
-				}
-				else if (var->s[x][y] == 'E')
-				{
-					mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
-					mlx_put_image_to_window(var->mlx, var->win, var->door, x1, y1);
-				}
-				x1 += 50;
-				y++;
+				mlx_put_image_to_window(var->mlx, var->win, var->wall, x1, y1);
 			}
-			x++;
-			
-			y1 += 50;
-			x1 = 0;
+			else if (var->s[x][y] == 'C')
+			{
+				mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
+				mlx_put_image_to_window(var->mlx, var->win, var->collect, x1, y1);
+			}
+			else if (var->s[x][y] == 'P')
+			{
+				
+				mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
+				mlx_put_image_to_window(var->mlx, var->win, var->player, x1, y1);
+			}
+			else if (var->s[x][y] == '0')
+			{
+				mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
+			}
+			else if (var->s[x][y] == 'E')
+			{
+				mlx_put_image_to_window(var->mlx, var->win, var->background, x1, y1);
+				mlx_put_image_to_window(var->mlx, var->win, var->door, x1, y1);
+			}
+			x1 += 50;
+			y++;
 		}
+		x++;
+		y1 += 50;
+		x1 = 0;
+	}
 }
 
 int	deal_key(int key, t_vars *var)
 {
 	int		x;
-	int		x1;
 	int 	y;
-	int		y1;
 
 	x = 0;
-	y1 = 0;
-	x1 = 0;
 	y = 0;
 
-	//printf("%s\n", var->s[x]);
 	if (key == 2)
 	{
-		while (var->s[x + 1] != NULL)
+		while (var->s[x] != NULL)
 		{
 			y = 0;
-			while(var->s[x][y] != '\n')
+			while(var->s[x][y] != '\0')
 			{
-				if (var->s[x][y] == 'P'  && var->s[x][y + 1] != '1')
+				if (var->s[x][y] == 'P'  && var->s[x][y + 1] != '1' && var->s[x][y + 1] != 'E')
 				{	
-					printf("P%c\n", var->s[x][y]);
 					var->s[x][y] = '0';
 					var->s[x][y + 1] = 'P';
+					var->steps++;
 					y += 2;
 					break ;
 				}
-				else
+				else if (var->s[x][y] == 'P'  && var->s[x][y + 1] == 'E')
 				{
-					y++;
+					if (checkcollect(var))
+					{
+						mlx_destroy_window(var->mlx, var->win);
+						//free(var->s);
+						return 0;
+					}
+					else if (!checkcollect(var))
+						y++;
 				}
+				else
+					y++;
 			}
 			x++;
 		}
 	}
 	if (key == 0)
 	{
-		while (var->s[x + 1] != 0)
+		while (var->s[x])
 		{ 
 			y = 0;
-			while(var->s[x][y] != '\n')
+			while(var->s[x][y] != '\0')
 			{
-				if (var->s[x][y] == 'P' && var->s[x][y - 1] != '1')
+				if (var->s[x][y] == 'P' && var->s[x][y - 1] != '1'&& var->s[x][y - 1] != 'E')
 				{	
-					printf("P%c\n", var->s[x][y]);
 					var->s[x][y] = '0';
 					var->s[x][y - 1] = 'P';
-					y++;
+					var->steps++;
 					break ;
+				}
+				else if (var->s[x][y] == 'P'  && var->s[x][y - 1] == 'E')
+				{
+					if (checkcollect(var))
+					{
+						mlx_destroy_window(var->mlx, var->win);
+						//free(var->s);
+						return 0;
+					}
+					else if (!checkcollect(var))
+					{
+						y++;
+					}
 				}
 				else
 				{
@@ -211,17 +254,30 @@ int	deal_key(int key, t_vars *var)
 	}
 	if (key == 13)
 	{
-		while (var->s[x + 1] != NULL)
+		while (var->s[x] != NULL)
 		{
 			y = 0;
 			while(var->s[x][y])
 			{
-				if (var->s[x][y] == 'P' && var->s[x - 1][y] != '1')
+				if (var->s[x][y] == 'P' && var->s[x - 1][y] != '1' && var->s[x - 1][y] != 'E')
 				{	
-					printf("P%c\n", var->s[x][y]);
 					var->s[x][y] = '0';
 					var->s[x - 1][y] = 'P';
+					var->steps++;
 					break ;
+				}
+				else if (var->s[x][y] == 'P'  && var->s[x - 1][y] == 'E')
+				{
+					if (checkcollect(var))
+					{
+						mlx_destroy_window(var->mlx, var->win);
+						//free(var->s);
+						return 0;
+					}
+					else if (!checkcollect(var))
+					{
+						y++;
+					}
 				}
 				else
 				{
@@ -238,13 +294,26 @@ int	deal_key(int key, t_vars *var)
 			y = 0;
 			while(var->s[x][y])
 			{
-				if (var->s[x][y] == 'P' && var->s[x + 1][y] != '1')
+				if (var->s[x][y] == 'P' && var->s[x + 1][y] != '1' && var->s[x + 1][y] != 'E')
 				{	
-					printf("P%c\n", var->s[x][y]);
 					var->s[x][y] = '0';
 					var->s[x + 1][y] = 'P';
+					var->steps++;
 					x++;
 					break ;
+				}
+				else if (var->s[x][y] == 'P'  && var->s[x + 1][y] == 'E')
+				{
+					if (checkcollect(var))
+					{
+						mlx_destroy_window(var->mlx, var->win);
+						//free(var->s);
+						return 0;
+					}
+					else if (!checkcollect(var))
+					{
+						y++;
+					}
 				}
 				else
 				{
@@ -254,7 +323,7 @@ int	deal_key(int key, t_vars *var)
 			x++;
 		}
 	}
-		
+	printf("Steps :%d\n", var->steps);
 	mlx_clear_window(var->mlx, var->win);
 	draw(var);
 	
@@ -262,76 +331,58 @@ int	deal_key(int key, t_vars *var)
 }
 
 
-
-
 int main(int argc, char *argv[])
 {
 	t_vars	var;
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	//char	**s;
 	char	*a;
-
 	int		fd;
-	int		width;
-	int		height;
-	int		i;
 	int		x;
 	int		y;
-	int		o;
-	int		x1;
-	int		y1;
 	int		x2;
 	int		y2;
+	int		width;
+	int		height;
 
+	width = 20;
+	height = 20;
 	fd = 0;
-	i = 0;
 	x = 0;
 	y = 0;
-	o = 0;
-	x1 = 0;
-	y1 = 0;
 	x2 = 0;
 	y2 = 0;
-	width = 2;
-	height = 2;
 
 	fd = open(argv[1], O_RDONLY);
 	a = get_next_line(fd);
 	y2 = strlen(a);
+	//printf("\n%s", a);
 	while(a != NULL)
 	{
 		a = get_next_line(fd);
 		x2++;
 	}
 	close(fd);
-	y2 -= 1;
 	var.s = (char**)calloc(x2, 1);
-	x = 0;
-	i = 0;
-	y = 0;
+
 	fd = open(argv[1], O_RDONLY);
-	var.s[x] = get_next_line(fd);
-	while (var.s[x])
+	while (1)
 	{
-		x++;
 		var.s[x] = get_next_line(fd);
-		
+		if (!var.s[x])
+			break;
+		printf("|ana hna %d|\n", x);
+		x++;
 	}
+	close(fd);
 	var.mlx = mlx_init();
-	var.win = mlx_new_window(var.mlx, 50 * y2, 50 * x2, "My First Game");
-
-
+	var.win = mlx_new_window(var.mlx, (50 * y2) + 1, 50 * x2, "My First Game");
 	var.wall = mlx_xpm_file_to_image(var.mlx, "./img/wall.xpm", &width, &height);
 	var.collect = mlx_xpm_file_to_image(var.mlx, "./img/heart1.xpm", &width, &height);
 	var.background = mlx_xpm_file_to_image(var.mlx, "./img/wall1.xpm", &width, &height);
 	var.player = mlx_xpm_file_to_image(var.mlx, "./img/idle.xpm", &width, &height);
 	var.door = mlx_xpm_file_to_image(var.mlx, "./img/door.xpm", &width, &height);
-	x = 0;
-	y = 0;
-	draw(&var);
+	//declaringimages(&var);
 	
+	draw(&var);
 	mlx_key_hook(var.win, deal_key, &var);
 
 	mlx_loop(var.mlx);
