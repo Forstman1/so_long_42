@@ -1,18 +1,23 @@
-CFILES  = get_next_line.c get_next_line_utils.c
+CFILES  = so_long.c so_long_utils.c movingfunc.c checkingwalls.c
 
 OFILES	= $(CFILES:.c=.o)
 
 
 CC	= gcc
-NAME = solong.a
+NAME = so_long.a
 
 
 all : $(NAME)
 
-$(NAME) : $(OFILES) get_next_line.h solong.h
+$(NAME) : $(OFILES) so_long.h
 	@ar -r $(NAME) $(OFILES)
 	@echo "solong.a been created"
 
-%.o:%.c get_next_line.h solong.h
+%.o:%.c so_long.h libft.a
 	@$(CC) -o $@ -c $<
 	@echo "$@ been created"
+
+execute : so_long.c so_long.a libft.a so_long.h
+	@$(CC) so_long.c so_long.a libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o output
+	@echo "executing"
+	@./output
