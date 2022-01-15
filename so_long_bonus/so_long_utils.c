@@ -20,13 +20,12 @@ void	declaringimages(t_vars *var)
 
 	height = 0;
 	width = 0;
-	var->w = mlx_xpm_file_to_image(var->mlx, "./img/dirt.xpm", &width, &height);
+	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &width, &height);
 	var->w1 = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &width, &height);
-	var->collect = mlx_xpm_file_to_image(var->mlx, "./img/heart.xpm", &width, &height);
-	//var->collect1 = mlx_xpm_file_to_image(var->mlx, "./img/heart2.xpm", &width, &height);
+	var->collect = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &width, &height);
 	var->back = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &width, &height);
 	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil1.xpm", &width, &height);
-	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door.xpm", &width, &height);
+	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &width, &height);
 	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy1.xpm", &width, &height);
 }
 
@@ -70,6 +69,7 @@ int	deal_key(int key, t_vars *var)
 	if (key == 53)
 		exit(0);
 	mlx_clear_window(var->mlx, var->win);
+	declaringimages(var);
 	draw(var);
 	return (0);
 }

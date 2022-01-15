@@ -42,5 +42,6 @@ void	upward(t_vars	*var);
 void	downward(t_vars	*var);
 int		close1(int key, t_vars	*var);
 int		checkthewalls(t_vars	*var);
+void	destroyimages(t_vars	*var);
 
 #endif
