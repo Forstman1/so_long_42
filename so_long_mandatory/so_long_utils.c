@@ -16,40 +16,35 @@
 void	destroyimages(t_vars	*var)
 {
 	mlx_destroy_image(var->mlx, var->w);
-	mlx_destroy_image(var->mlx, var->collect);
-	mlx_destroy_image(var->mlx, var->collect1);
+	mlx_destroy_image(var->mlx, var->c);
 	mlx_destroy_image(var->mlx, var->back);
 	mlx_destroy_image(var->mlx, var->p);
 	mlx_destroy_image(var->mlx, var->d);
 	mlx_destroy_image(var->mlx, var->e);
-	mlx_destroy_image(var->mlx, var->de);
 }
 
 void	declaringimages(t_vars	*var)
 {
-	int	height;
-	int	width;
+	int	hei;
+	int	wid;
 
-	height = 0;
-	width = 0;
-	var->w = mlx_xpm_file_to_image(var->mlx, "./img/wall3.xpm", &width, &height);
-	var->collect = mlx_xpm_file_to_image(var->mlx, "./img/coin2.xpm", &width, &height);
-	var->collect1 = mlx_xpm_file_to_image(var->mlx, "./img/coin2.xpm", &width, &height);
-	var->back = mlx_xpm_file_to_image(var->mlx, "./img/wall1.xpm", &width, &height);
-	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixel.xpm", &width, &height);
-	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door.xpm", &width, &height);
-	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy.xpm", &width, &height);
-	var->de = mlx_xpm_file_to_image(var->mlx, "./img/dead.xpm", &width, &height);
+	hei = 0;
+	wid = 0;
+	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &wid, &hei);
+	var->c = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &wid, &hei);
+	var->back = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &wid, &hei);
+	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil3.xpm", &wid, &hei);
+	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &wid, &hei);
+	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy3.xpm", &wid, &hei);
 }
 
 int	checkcollect(t_vars *var)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-
 	while (var->s[x])
 	{
 		y = 0;
@@ -66,8 +61,8 @@ int	checkcollect(t_vars *var)
 
 int	deal_key(int key, t_vars *var)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;

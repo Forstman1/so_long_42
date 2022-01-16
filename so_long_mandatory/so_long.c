@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 		save[i] = buff[0];
 		save[i + 1] = '\0';
 		if (save[i] == '\0')
-			break;
+			break ;
 		i++;
 	}
 	if (save[0] == '\0')
@@ -42,56 +42,18 @@ char	*get_next_line(int fd)
 	return (strdup(save));
 }
 
-int	draw(t_vars *var)
-{
-	int		x;
-	int		y;
-	int		x1;
-	int		y1;
-
-	x = 0;
-	y = 0;
-	x1 = 0;
-	y1 = 0;
-
-	while (var->s[x])
-	{
-
-		y = 0;
-		while (var->s[x][y])
-		{
-			if (var->s[x][y] == '1')
-				mlx_put_image_to_window(var->mlx, var->win, var->w, x1, y1);
-			else if (var->s[x][y] == 'C')
-			{
-				mlx_put_image_to_window(var->mlx, var->win, var->back, x1, y1);
-				mlx_put_image_to_window(var->mlx, var->win, var->collect1, x1, y1);
-			}
-			else if (var->s[x][y] == 'P')
-			{
-				mlx_put_image_to_window(var->mlx, var->win, var->back, x1, y1);
-				mlx_put_image_to_window(var->mlx, var->win, var->p, x1, y1);
-			}
-			else if (var->s[x][y] == '0')
-				mlx_put_image_to_window(var->mlx, var->win, var->back, x1, y1);
-			else if (var->s[x][y] == 'E')
-			{
-				mlx_put_image_to_window(var->mlx, var->win, var->back, x1, y1);
-				mlx_put_image_to_window(var->mlx, var->win, var->d, x1, y1);
-			}
-			x1 += 50;
-			y++;
-		}
-		x++;
-		y1 += 50;
-		x1 = 0;
-	}
-	return (0);
-}
-int close1(int key, t_list	*var)
+int	close1(int key, t_vars	*var)
 {
 	exit(0);
-	return 0;
+	return (0);
+}
+
+void	drawingfunc(t_vars	*var)
+{
+	declaringimages(var);
+	draw(var);
+	mlx_key_hook(var->win, deal_key, var);
+	mlx_hook(var->win, 17, 0, close1, var);
 }
 
 int	main(int argc, char *argv[])
@@ -114,19 +76,9 @@ int	main(int argc, char *argv[])
 	close(fd);
 	var.mlx = mlx_init();
 	var.win = mlx_new_window(var.mlx, 50 * y2, 50 * x2, "Forstman Funds");
-	if (checkthewalls(&var))
-	{
-		free(var.mlx);
-		free(var.win);
-		printf("ERROR\n");
-		free(var.s);
+	if (checkthewalls(&var, x2))
 		exit(0);
-	}
-	declaringimages(&var);
-	draw(&var);
-	mlx_key_hook(var.win, deal_key, &var);
-	mlx_hook(var.win, 17, 0, close1, &var);
-	//mlx_loop_hook(var.mlx, draw, &var);
+	drawingfunc(&var);
 	mlx_loop(var.mlx);
 	return (0);
 }

@@ -94,6 +94,8 @@ int	checkthewalls(t_vars	*var)
 	while (var->s[x])
 		x++;
 	
+	if (x < 3)
+		return 1;
 	if (firstline(var))
 		return 1;
 

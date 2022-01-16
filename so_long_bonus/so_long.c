@@ -137,7 +137,7 @@ int	animations(t_vars	*var)
 		var->loop++;
 		draw(var);
 	}
-	else if (var->loop > 20 && var->loop < 40)
+	else if (var->loop > 20 && var->loop <= 40)
 	{
 		mlx_destroy_image(var->mlx, var->p);
 		mlx_destroy_image(var->mlx, var->e);
@@ -148,7 +148,7 @@ int	animations(t_vars	*var)
 		var->loop++;
 		draw(var);
 	}
-	else if (var->loop >= 40 && var->loop < 60)
+	else if (var->loop > 40 && var->loop < 60)
 	{
 		mlx_destroy_image(var->mlx, var->p);
 		mlx_destroy_image(var->mlx, var->e);
@@ -162,7 +162,7 @@ int	animations(t_vars	*var)
 	else
 	{
 		var->loop = 0;
-		//draw(var);
+		draw(var);
 	}
 	return 0;
 }

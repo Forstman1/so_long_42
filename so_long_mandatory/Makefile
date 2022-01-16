@@ -1,4 +1,4 @@
-CFILES  = so_long.c so_long_utils.c movingfunc.c checkingwalls.c
+CFILES  = so_long.c so_long_utils.c movingfunc.c checkingwalls.c puttingimages.c
 
 OFILES	= $(CFILES:.c=.o)
 
