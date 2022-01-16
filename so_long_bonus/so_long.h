@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sahafid <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/16 19:59:39 by sahafid           #+#    #+#             */
+/*   Updated: 2022/01/16 19:59:40 by sahafid          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
@@ -12,7 +22,7 @@
 # include <string.h>
 # include "libft/libft.h"
 
-typedef struct	s_vars {
+typedef struct s_vars {
 	void	*mlx;
 	void	*win;
 	char	**s;
@@ -20,21 +30,17 @@ typedef struct	s_vars {
 	void	*w;
 	void	*w1;
 	void	*p;
-	void	*collect;
+	void	*col;
 	void	*d;
 	void	*e;
-	void	*collect1;
-	void	*de;
-    int		steps;
+	int		steps;
 	int		loop;
-
 }				t_vars;
 
 char	*get_next_line(int fd);
 int		checkcollect(t_vars *var);
-int     deal_key(int key, t_vars *var);
+int		deal_key(int key, t_vars *var);
 int		draw(t_vars	*var);
-void	drawdead(t_vars	*var);
 void	declaringimages(t_vars	*var);
 void	forward(t_vars	*var);
 void	backward(t_vars	*var);
@@ -43,5 +49,14 @@ void	downward(t_vars	*var);
 int		close1(int key, t_vars	*var);
 int		checkthewalls(t_vars	*var);
 void	destroyimages(t_vars	*var);
+int		animations(t_vars	*var);
+void	destroyimagesanimations(t_vars *var);
+void	puttingplayer(t_vars	*var, int x1, int y1);
+void	puttingrass(t_vars	*var, int x1, int y1);
+void	puttingcollectible(t_vars	*var, int x1, int y1);
+void	downward1(t_vars *var, int x);
+void	backward1(t_vars *var, int x);
+void	forward1(t_vars *var, int x);
+void	upward1(t_vars *var, int x);
 
 #endif

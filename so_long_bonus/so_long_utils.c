@@ -15,28 +15,26 @@
 
 void	declaringimages(t_vars *var)
 {
-	int	height;
-	int	width;
+	int	hei;
+	int	wid;
 
-	height = 0;
-	width = 0;
-	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &width, &height);
-	var->w1 = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &width, &height);
-	var->collect = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &width, &height);
-	var->back = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &width, &height);
-	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil1.xpm", &width, &height);
-	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &width, &height);
-	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy1.xpm", &width, &height);
+	hei = 0;
+	wid = 0;
+	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &wid, &hei);
+	var->w1 = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &wid, &hei);
+	var->col = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &wid, &hei);
+	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil1.xpm", &wid, &hei);
+	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &wid, &hei);
+	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy1.xpm", &wid, &hei);
 }
 
 int	checkcollect(t_vars *var)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-
 	while (var->s[x])
 	{
 		y = 0;
@@ -53,8 +51,8 @@ int	checkcollect(t_vars *var)
 
 int	deal_key(int key, t_vars *var)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;

@@ -1,9 +1,10 @@
-CFILES  = so_long.c so_long_utils.c movingfunc.c checkingwalls.c
+CFILES  = so_long.c so_long_utils.c moving.c checkingwalls.c draw.c animations.c animations_utils.c draw_utils.c
 
 OFILES	= $(CFILES:.c=.o)
 
 
 CC	= gcc
+Flags = -Wall -Werror -Wall
 NAME = so_long.a
 
 
@@ -14,10 +15,10 @@ $(NAME) : $(OFILES) so_long.h
 	@echo "solong.a been created"
 
 %.o:%.c so_long.h libft.a
-	@$(CC) -o $@ -c $<
+	@$(CC) $(Flags) -o $@ -c $<
 	@echo "$@ been created"
 
 execute : so_long.c so_long.a libft.a so_long.h
-	@$(CC) so_long.c so_long.a libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o output
+	@$(CC) $(Flags) so_long.c so_long.a libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o output
 	@echo "executing"
 	@./output fd.ber
