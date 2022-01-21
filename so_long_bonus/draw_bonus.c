@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	puttingenemy(t_vars	*var, int x1, int y1)
 {
@@ -39,6 +39,11 @@ void	puttingimages(t_vars	*var, int x, int y, int y1)
 		{
 			mlx_put_image_to_window(var->mlx, var->win, var->w, x1, y1);
 			mlx_put_image_to_window(var->mlx, var->win, var->d, x1, y1);
+		}
+		else
+		{
+			printf("ERROR\n");
+			exit(0);
 		}
 		x1 += 50;
 		y++;

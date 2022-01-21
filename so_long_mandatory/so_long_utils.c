@@ -31,7 +31,7 @@ void	declaringimages(t_vars	*var)
 	hei = 0;
 	wid = 0;
 	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &wid, &hei);
-	var->c = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &wid, &hei);
+	var->c = mlx_xpm_file_to_image(var->mlx, "./img/collect.xpm", &wid, &hei);
 	var->back = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &wid, &hei);
 	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil3.xpm", &wid, &hei);
 	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &wid, &hei);

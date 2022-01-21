@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	checkcollectibles(t_vars *var, int *y)
 {
@@ -55,7 +55,7 @@ void	upward(t_vars *var)
 	x = 0;
 	while (var->s[x])
 	{
-		upward1(var, x);
+		upward1(var, &x);
 		x++;
 	}
 }
@@ -67,7 +67,7 @@ void	downward(t_vars *var)
 	x = 0;
 	while (var->s[x] != NULL)
 	{
-		downward1(var, x);
+		downward1(var, &x);
 		x++;
 	}
 }

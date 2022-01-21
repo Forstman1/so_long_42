@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "mlx.h"
-# include "so_long.h"
+# include "so_long_bonus.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
@@ -46,17 +46,24 @@ void	forward(t_vars	*var);
 void	backward(t_vars	*var);
 void	upward(t_vars	*var);
 void	downward(t_vars	*var);
-int		close1(int key, t_vars	*var);
+int		close1(int key);
 int		checkthewalls(t_vars	*var);
 void	destroyimages(t_vars	*var);
+void	checkcollectibles(t_vars *var, int *y);
 int		animations(t_vars	*var);
 void	destroyimagesanimations(t_vars *var);
 void	puttingplayer(t_vars	*var, int x1, int y1);
 void	puttingrass(t_vars	*var, int x1, int y1);
 void	puttingcollectible(t_vars	*var, int x1, int y1);
-void	downward1(t_vars *var, int x);
 void	backward1(t_vars *var, int x);
 void	forward1(t_vars *var, int x);
-void	upward1(t_vars *var, int x);
+void	downward1(t_vars *var, int *x);
+void	upward1(t_vars *var, int *x);
+int		checkexit(t_vars *var);
+void	errors(void);
+int		checkplayer(t_vars *var);
+void	losing(void);
+int		checkvalid(char *a, t_vars	*var);
+
 
 #endif

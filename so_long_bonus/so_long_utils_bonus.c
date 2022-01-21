@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 #include "mlx.h"
 
 void	declaringimages(t_vars *var)
@@ -22,7 +22,7 @@ void	declaringimages(t_vars *var)
 	wid = 0;
 	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &wid, &hei);
 	var->w1 = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &wid, &hei);
-	var->col = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &wid, &hei);
+	var->col = mlx_xpm_file_to_image(var->mlx, "./img/collect.xpm", &wid, &hei);
 	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil1.xpm", &wid, &hei);
 	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &wid, &hei);
 	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy1.xpm", &wid, &hei);
@@ -46,6 +46,7 @@ int	checkcollect(t_vars *var)
 		}
 		x++;
 	}
+	write(1, "YOU WON\n", 8);
 	return (1);
 }
 

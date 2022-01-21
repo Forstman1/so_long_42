@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	forward1(t_vars *var, int x)
 {
@@ -20,7 +20,7 @@ void	forward1(t_vars *var, int x)
 	while (var->s[x][y])
 	{
 		if (var->s[x][y] == 'P' && var->s[x][y + 1] == 'I')
-			exit(0);
+			losing();
 		else if (var->s[x][y] == 'P' && var->s[x][y + 1] != '1' &&
 			var->s[x][y + 1] != 'E')
 		{
@@ -44,7 +44,7 @@ void	backward1(t_vars *var, int x)
 	while (var->s[x][y])
 	{
 		if (var->s[x][y] == 'P' && var->s[x][y - 1] == 'I')
-			exit(0);
+			losing();
 		else if (var->s[x][y] == 'P' && var->s[x][y - 1] != '1' &&
 			var->s[x][y - 1] != 'E')
 		{
@@ -60,51 +60,58 @@ void	backward1(t_vars *var, int x)
 	}
 }
 
-void	upward1(t_vars *var, int x)
+void	upward1(t_vars *var, int *x)
 {
 	int	y;
 
 	y = 0;
-	while (var->s[x][y])
+	while (var->s[*x][y])
 	{
-		if (var->s[x][y] == 'P' && var->s[x - 1][y] == 'I')
-			exit(0);
-		else if (var->s[x][y] == 'P' && var->s[x - 1][y] != '1' &&
-			var->s[x - 1][y] != 'E')
+		if (var->s[*x][y] == 'P' && var->s[*x - 1][y] == 'I')
+			losing();
+		else if (var->s[*x][y] == 'P' && var->s[*x - 1][y] != '1' &&
+			var->s[*x - 1][y] != 'E')
 		{
-			var->s[x][y] = '0';
-			var->s[x - 1][y] = 'P';
+			var->s[*x][y] = '0';
+			var->s[*x - 1][y] = 'P';
+			*x += 1;
 			var->steps++;
 			break ;
 		}
-		else if (var->s[x][y] == 'P' && var->s[x - 1][y] == 'E')
+		else if (var->s[*x][y] == 'P' && var->s[*x - 1][y] == 'E')
 			checkcollectibles(var, &y);
 		else
 			y++;
 	}
 }
 
-void	downward1(t_vars *var, int x)
+void	downward1(t_vars *var, int *x)
 {
 	int	y;
 
 	y = 0;
-	while (var->s[x][y])
+	while (var->s[*x][y])
 	{
-		if (var->s[x][y] == 'P' && var->s[x + 1][y] == 'I')
-			exit(0);
-		else if (var->s[x][y] == 'P' && var->s[x + 1][y] != '1' &&
-			var->s[x + 1][y] != 'E')
+		if (var->s[*x][y] == 'P' && var->s[*x + 1][y] == 'I')
+			losing();
+		else if (var->s[*x][y] == 'P' && var->s[*x + 1][y] != '1' &&
+			var->s[*x + 1][y] != 'E')
 		{
-			var->s[x][y] = '0';
-			var->s[x + 1][y] = 'P';
+			var->s[*x][y] = '0';
+			var->s[*x + 1][y] = 'P';
 			var->steps++;
-			x++;
+			*x += 2;
 			break ;
 		}
-		else if (var->s[x][y] == 'P' && var->s[x + 1][y] == 'E')
+		else if (var->s[*x][y] == 'P' && var->s[*x + 1][y] == 'E')
 			checkcollectibles(var, &y);
 		else
 			y++;
 	}
+}
+
+void	losing(void)
+{
+	write(1, "YOU LOSE\n", 9);
+	exit(0);
 }

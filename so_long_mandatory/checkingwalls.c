@@ -80,25 +80,15 @@ int	lastrow(t_vars *var, int x)
 
 int	checkthewalls(t_vars *var, int x)
 {
+	if (x < 3)
+		errors();
 	if (firstline(var))
-	{
-		printf("ERROR\n");
-		return (1);
-	}
+		errors();
 	if (lastline(var, x))
-	{
-		printf("ERROR\n");
-		return (1);
-	}
+		errors();
 	if (firstrow(var, x))
-	{
-		printf("ERROR\n");
-		return (1);
-	}
+		errors();
 	if (lastrow(var, x))
-	{
-		printf("ERROR\n");
-		return (1);
-	}
+		errors();
 	return (0);
 }

@@ -12,6 +12,12 @@
 
 #include "so_long.h"
 
+void	puttingcollectible(t_vars	*var, int x1, int y1)
+{
+	mlx_put_image_to_window(var->mlx, var->win, var->w, x1, y1);
+	mlx_put_image_to_window(var->mlx, var->win, var->c, x1, y1);
+}
+
 void	puttingplayer(t_vars	*var, int x1, int y1)
 {
 	mlx_put_image_to_window(var->mlx, var->win, var->w, x1, y1);
@@ -34,10 +40,7 @@ void	puttingimages(t_vars	*var, int x, int y, int y1)
 		if (var->s[x][y] == '1')
 			puttingrass(var, x1, y1);
 		else if (var->s[x][y] == 'C')
-		{
-			mlx_put_image_to_window(var->mlx, var->win, var->w, x1, y1);
-			mlx_put_image_to_window(var->mlx, var->win, var->c, x1, y1);
-		}
+			puttingcollectible(var, x1, y1);
 		else if (var->s[x][y] == 'P')
 			puttingplayer(var, x1, y1);
 		else if (var->s[x][y] == '0')
@@ -47,6 +50,8 @@ void	puttingimages(t_vars	*var, int x, int y, int y1)
 			mlx_put_image_to_window(var->mlx, var->win, var->w, x1, y1);
 			mlx_put_image_to_window(var->mlx, var->win, var->d, x1, y1);
 		}
+		else
+			errors();
 		x1 += 50;
 		y++;
 	}

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	firstline(t_vars *var)
 {
@@ -81,14 +81,9 @@ int	lastrow(t_vars *var, int x)
 int	checkthewalls(t_vars *var)
 {
 	int	x;
-	int	y;
-	int	x1;
-	int	y1;
+
 
 	x = 0;
-	y = 0;
-	x1 = 1;
-	y1 = 0;
 	while (var->s[x])
 		x++;
 	if (x < 3)

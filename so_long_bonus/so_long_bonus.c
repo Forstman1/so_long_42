@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "so_long.h"
+#include "so_long_bonus.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -41,8 +41,9 @@ char	*get_next_line(int fd)
 	return (strdup(save));
 }
 
-int	close1(int key, t_vars	*var)
+int	close1(int key)
 {
+	key = 0;
 	exit(0);
 	return (0);
 }
@@ -52,7 +53,7 @@ void	drawingfunc(t_vars	*var)
 	declaringimages(var);
 	mlx_loop_hook(var->mlx, animations, var);
 	mlx_key_hook(var->win, deal_key, var);
-	mlx_hook(var->win, 17, 0, close1, var);
+	mlx_hook(var->win, 17, 0, close1, (void *)0);
 }
 
 void	spliting(t_vars	*var, int fd, int *y2, int *x2)
