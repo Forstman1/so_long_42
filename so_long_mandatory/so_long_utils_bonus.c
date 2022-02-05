@@ -10,35 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 #include "mlx.h"
 
-void	destroyimages(t_vars	*var)
-{
-	mlx_destroy_image(var->mlx, var->w);
-	mlx_destroy_image(var->mlx, var->c);
-	mlx_destroy_image(var->mlx, var->back);
-	mlx_destroy_image(var->mlx, var->p);
-	mlx_destroy_image(var->mlx, var->d);
-	mlx_destroy_image(var->mlx, var->e);
-}
-
-void	declaringimages(t_vars	*var)
+void	declaringimagesbonus(t_vars_bonus *var)
 {
 	int	hei;
 	int	wid;
 
 	hei = 0;
 	wid = 0;
-	var->w = mlx_xpm_file_to_image(var->mlx, "./img/grass.xpm", &wid, &hei);
-	var->c = mlx_xpm_file_to_image(var->mlx, "./img/key3.xpm", &wid, &hei);
-	var->back = mlx_xpm_file_to_image(var->mlx, "./img/grass1.xpm", &wid, &hei);
-	var->p = mlx_xpm_file_to_image(var->mlx, "./img/pixil3.xpm", &wid, &hei);
-	var->d = mlx_xpm_file_to_image(var->mlx, "./img/door1.xpm", &wid, &hei);
-	var->e = mlx_xpm_file_to_image(var->mlx, "./img/enemy3.xpm", &wid, &hei);
+	var->w = mlx_xpm_file_to_image(var->mlx, "./img_bonus/grass.xpm", &wid, &hei);
+	var->w1 = mlx_xpm_file_to_image(var->mlx, "./img_bonus/grass1.xpm", &wid, &hei);
+	var->col = mlx_xpm_file_to_image(var->mlx, "./img_bonus/key3.xpm", &wid, &hei);
+	var->p = mlx_xpm_file_to_image(var->mlx, "./img_bonus/pixil1.xpm", &wid, &hei);
+	var->d = mlx_xpm_file_to_image(var->mlx, "./img_bonus/door1.xpm", &wid, &hei);
+	var->e = mlx_xpm_file_to_image(var->mlx, "./img_bonus/enemy1.xpm", &wid, &hei);
 }
 
-int	checkcollect(t_vars *var)
+int	checkcollectbonus(t_vars_bonus *var)
 {
 	int	x;
 	int	y;
@@ -59,7 +49,7 @@ int	checkcollect(t_vars *var)
 	return (1);
 }
 
-int	deal_key(int key, t_vars *var)
+int	deal_key_bonus(int key, t_vars_bonus *var)
 {
 	int	x;
 	int	y;
@@ -67,19 +57,17 @@ int	deal_key(int key, t_vars *var)
 	x = 0;
 	y = 0;
 	if (key == 2)
-		forward(var);
+		forwardbonus(var);
 	if (key == 0)
-		backward(var);
+		backwardbonus(var);
 	if (key == 13)
-		upward(var);
+		upwardbonus(var);
 	if (key == 1)
-		downward(var);
+		downwardbonus(var);
 	if (key == 53)
 		exit(0);
-	printf("steps : %d\n", var->steps);
 	mlx_clear_window(var->mlx, var->win);
-	destroyimages(var);
-	declaringimages(var);
-	draw(var);
+	declaringimagesbonus(var);
+	draw_bonus(var);
 	return (0);
 }

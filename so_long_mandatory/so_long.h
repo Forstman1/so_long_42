@@ -45,17 +45,12 @@ void	forward(t_vars	*var);
 void	backward(t_vars	*var);
 void	upward(t_vars	*var);
 void	downward(t_vars	*var);
-int		close1(int key);
+int		close1(int key, t_vars	*var);
 int		checkthewalls(t_vars	*var, int x2);
 void	destroyimages(t_vars	*var);
 void	drawingfunc(t_vars	*var);
 void	puttingimages(t_vars	*var, int x, int y, int y1);
 void	puttingrass(t_vars	*var, int x1, int y1);
 void	puttingplayer(t_vars	*var, int x1, int y1);
-void	puttingcollectible(t_vars	*var, int x1, int y1);
-int		checkvalid(char *a, t_vars	*var);
-void	errors(void);
-int		checkexit(t_vars	*var);
-int		checkplayer(t_vars	*var);
 
 #endif

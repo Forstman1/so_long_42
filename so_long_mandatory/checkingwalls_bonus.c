@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "so_long_bonus.h"
 
-int	firstline(t_vars *var)
+int	firstline(t_vars_bonus *var)
 {
 	int	y;
 
@@ -31,7 +30,7 @@ int	firstline(t_vars *var)
 		return (1);
 }
 
-int	lastline(t_vars *var, int x)
+int	lastline(t_vars_bonus *var, int x)
 {
 	int	y;
 
@@ -49,7 +48,7 @@ int	lastline(t_vars *var, int x)
 		return (1);
 }
 
-int	firstrow(t_vars *var, int x)
+int	firstrow(t_vars_bonus *var, int x)
 {
 	int	x1;
 
@@ -62,7 +61,7 @@ int	firstrow(t_vars *var, int x)
 		return (0);
 }
 
-int	lastrow(t_vars *var, int x)
+int	lastrow(t_vars_bonus *var, int x)
 {
 	int	y;
 	int	x1;
@@ -79,27 +78,28 @@ int	lastrow(t_vars *var, int x)
 		return (0);
 }
 
-int	checkthewalls(t_vars *var, int x)
+int	checkthewallsbonus(t_vars_bonus *var)
 {
+	int	x;
+	int	y;
+	int	x1;
+	int	y1;
+
+	x = 0;
+	y = 0;
+	x1 = 1;
+	y1 = 0;
+	while (var->s[x])
+		x++;
+	if (x < 3)
+		return (1);
 	if (firstline(var))
-	{
-		write(1, "ERROR\n", 6);
 		return (1);
-	}
 	if (lastline(var, x))
-	{
-		write(1, "ERROR\n", 6);
 		return (1);
-	}
 	if (firstrow(var, x))
-	{
-		write(1, "ERROR\n", 6);
 		return (1);
-	}
 	if (lastrow(var, x))
-	{
-		write(1, "ERROR\n", 6);
 		return (1);
-	}
 	return (0);
 }
