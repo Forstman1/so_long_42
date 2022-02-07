@@ -66,7 +66,10 @@ int	deal_key(int key, t_vars *var)
 	if (key == 1)
 		downward(var);
 	if (key == 53)
+	{
+		system("leaks so_long_bonus");
 		exit(0);
+	}
 	mlx_clear_window(var->mlx, var->win);
 	declaringimages(var);
 	draw(var);

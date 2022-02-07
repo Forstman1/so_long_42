@@ -15,7 +15,7 @@ all: $(NAME)
 
 $(NAME) : $(OFILES)
 	@ar -r $(NAME) $(OFILES)
-	@$(CC) $(Flags) -g so_long.c so_long.a libft/libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o so_long
+	@$(CC) $(Flags) -g so_long.c so_long.a libft1/libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o so_long
 	@echo "so_long.a been created"
 
 %.o:%.c so_long.h so_long_bonus.h
@@ -31,7 +31,7 @@ re : fclean all
 
 bonus : fclean $(OBONUS)
 	@ar -r $(NAME) $(OBONUS)
-	@$(CC) $(Flags) so_long_bonus.c so_long.a libft/libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o so_long_bonus
+	@$(CC) $(Flags) so_long_bonus.c so_long.a libft1/libft.a -L /Users/sahafid/Desktop/minilibx_mms_20200219 -lmlx -framework OpenGl -framework AppKit -o so_long_bonus
 
 execute :
 	@echo "executing mandatory"

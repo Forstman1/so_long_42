@@ -41,8 +41,8 @@ char	*get_next_line(int fd)
 
 int	close1(int key)
 {
-	if (key != -1)
-		exit(0);
+	key = 0;
+	exit(0);
 	return (0);
 }
 
@@ -61,7 +61,7 @@ void	spliting(t_vars	*var, int fd, int *y2, int *x2)
 
 	temp = 0;
 	a = get_next_line(fd);
-	if (a[0] == '\n')
+	if (a == NULL || a[0] == '\n')
 		errors();
 	var->s = ft_split(a, '\n');
 	if (var->s == NULL)
@@ -91,11 +91,11 @@ int	main(int argc, char *argv[])
 		fd = open(argv[1], O_RDONLY);
 		spliting(&var, fd, &y2, &x2);
 		checkvalid(argv[1], &var);
+		if (checkthewalls(&var, x2))
+			errors();
 		close(fd);
 		var.mlx = mlx_init();
 		var.win = mlx_new_window(var.mlx, 50 * y2, 50 * x2, "Forstman Funds");
-		if (checkthewalls(&var, x2))
-			errors();
 		drawingfunc(&var);
 		mlx_loop(var.mlx);
 	}

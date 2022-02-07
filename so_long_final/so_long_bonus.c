@@ -62,7 +62,7 @@ void	spliting(t_vars	*var, int fd, int *y2, int *x2)
 
 	temp = 0;
 	a = get_next_line(fd);
-	if (a[0] == '\n')
+	if (a == NULL || a[0] == '\n')
 		errors();
 	var->s = ft_split(a, '\n');
 	if (var->s == NULL)
