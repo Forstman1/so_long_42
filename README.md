@@ -22,3 +22,4 @@ that's for the things it should the map have if it's not that means there is Mis
 The map can be composed of only these 5 characters: Player, Exit, Collectible, Wall, Empty Space.
 
 ![alt text](https://github.com/Forstman1/so_long/blob/main/so_long_final/img_bonus/grass1.png)
+![alt text](https://github.com/Forstman1/so_long/blob/main/so_long_final/img_bonus/pixil3.png)
