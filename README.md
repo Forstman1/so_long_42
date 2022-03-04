@@ -1,25 +1,35 @@
-# SO_LONG
+# `SO_LONG` Project Description
 
-ok this is my first ReadMe im doing so don't expect that mush anyways let's get started.
+_**Disclaimer:** OK, This is my first `README`, so don't expect that mush. Anyways, let's get started._
 
-First things first im using the Minilibix Library developed by 42 Network.
+First things first, i'm using the Minilibix Library developed by 42 Network.
 
-this how i was using that graphical interface, for the first part all i what i did is putting images in the screen
-with any map it should be dynamic that means any map was put in the .ber file exemple : 
+It's what I used to create the Graphical Interface, for the first part, all I did was putting images in the screen.
+Note that dynamic, i.e. it should work with any VALID map that ends with the `.ber` file extension, e.g.: 
+
+```text
 map.ber
 fd.ber
+```
 should be good but it need to follow some rule.
 
 ## Rules of the map
-- needs to be triangle or rectangle.
-- needs to be surrounded by walls.
-- have at least 1 exit.
-- have at least 1 collectible.
-- have at least 1 Player.
 
-that's for the things it should the map have if it's not that means there is Misconfiguration in the map.
+Needs to:
+- Be triangle or rectangle.
+- Be surrounded by walls.
+- Have at least 1 exit.
+- Have at least 1 collectible.
+ Have at least 1 Player.
 
-The map can be composed of only these 5 characters: Player, Exit, Collectible, Wall, Empty Space.
+That's basically all ther is for the essentials, if any of these rules are Invalid, it means that there's Misconfiguration in the map.
+
+The map can be composed of only these 5 characters:
+1. Player
+2. Exit
+3. Collectible 
+4. Wall
+5. Empty Space
 
 ![alt text](https://github.com/Forstman1/so_long/blob/main/so_long_final/img_bonus/grass1.png)
 ![alt text](https://github.com/Forstman1/so_long/blob/main/so_long_final/img_bonus/pixil3.png)
@@ -29,23 +39,41 @@ The map can be composed of only these 5 characters: Player, Exit, Collectible, W
 
 ## How to Play 
 
-it's easy just go to your terminal and the following command ``` Make ``` then ```Make execute``` then the game will be running !
-- To Move up ```W```, To Move down ```S```, To Move right ```D```, To Move left ```A```, ```ECHAP``` to exit the Game
-- You need to collect all key's to open the door and go through it and you should not touch the enemies if you did you gonna start over
+It's actually pretty easy, just go to your terminal and type in the following command:
 
+```bash
+$ make
+```
+
+then :
+
+```bash
+$ make execute
+```
+and the game should be up and running !
+
+### Game Legend:
+- `W`: Move up
+- `S`: Move down
+- `D`: Move to the right
+- `A`: Move to the left
+- `Esc`: Exit the Game
+ 
+You need to collect all the keys _(cherries in our case)_ to open the door and go through it, and you should'nt touch any of the enemies, if you do, you're gonna start over
 
 ![alt text](https://github.com/Forstman1/so_long/blob/main/so_long_final/img_bonus/game.png)
 
-## how you can create your own so_long
+## How you can create your own so_long
 
-this is the part where 42 students can pay attention the most.
+This is the part where 42 students can pay attention the most.
 
-First thing first u need to now how to use milibix library, it so important for you to know all the functions because so good to know them i
-will drop some links here tha can really help you [Minilibix Library](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
+First thing first u need to now how to use milibix library, it so important for you to know all the functions because they can be very useful.
+Here's some links that can really help you :
+- [Minilibix Library](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
 
-### The Functions That you gonna Need What are they for
+### The Functions you're gonna need & What are they for - 101
 
-1. ```mlx_init()``` : What is does is it key stone for all the other minilibix so with out it you can't use other function it's the connection between your terminal and correct graphical system and it return a void * which holds the location of our current MLX instance
-2. ```mlx_new_window()``` : As it say in the name it's the function that create the window and it takes 4 arguments, First one of course VOID * that is returned by mlx_init() and second one is the width of the window and third one is the height of window and firth one of the name of the window 
+1. `mlx_init()` : It's basically the initialization of the connection between your terminal and the correct graphical system. It return a `void *` which holds the location of our current MLX instance. Tt is the Key Stone for all the other _comming_ minilibix functions, so without it we can't use them. 
+2. `mlx_new_window()` : As it says in its name, It's the function that create the window and it takes 4 arguments, First one is of course the `void *` returned by `mlx_init()`, the 2nd one is the width of the window, the 3rd one is the height of window, and the 4th one of the name _aka Title_ of the window. 
 
 
